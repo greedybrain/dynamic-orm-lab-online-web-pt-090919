@@ -13,7 +13,7 @@ class InteractiveRecord
   end
   
   def self.column_names 
-    # DB[:conn].results_as_hash = true
+    DB[:conn].results_as_hash = true
  
     sql = "PRAGMA table_info('#{table_name}')"
  
@@ -44,7 +44,7 @@ class InteractiveRecord
   end
   
   def save
-    DB[:conn].execute("INSERT INTO #{table_name_for_insert} (#{col_names_for_insert}) VALUES (?)", [values_for_insert])
+    DB[:conn].execute("INSERT INTO #{table_name_for_insert} (#{col_names_for_insert}) VALUES (?, ?)", [values_for_insert], [values_for_insert])
  
     @id = DB[:conn].execute("SELECT last_insert_rowid() FROM #{table_name_for_insert}")[0][0]
   end
